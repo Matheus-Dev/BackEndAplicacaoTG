@@ -4,10 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
+const config = require('./config');
 
 const app = express();
 
-mongoose.connect('mongodb://admin:harasadmin@ds042607.mlab.com:42607/haraswebdb');
+mongoose.connect(config.connectionString);
 
 //const Contato = require('./models/contato');
 //const Operadora = require('./models/operadora');

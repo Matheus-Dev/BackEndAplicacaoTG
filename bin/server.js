@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('http');
-const debug = require('debug')('ltelefonica:server');
+const debug = require('debug')('backendharras:server');
 const app = require('../src/app');
 
 //const port = process.env.PORT || 3000;

@@ -34,7 +34,7 @@ const schema = new Schema({
 	},
 	image : {
 		type : String,
-		default : 'assets/imgs/cavaloo.png'
+		default : 'assets/imgs/cavalo.png'
 	},
 	haras : {
 		type: Schema.Types.ObjectId, 

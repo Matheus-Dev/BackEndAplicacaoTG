@@ -7,7 +7,11 @@ const moment = require('moment');
 exports.get = async() => {
 	const res = await 
 		Animal
-		.find({});
+		.find({})
+		.populate('haras')
+		.populate('proprietario')
+		.populate('veterinario')
+		;
 	return res;
 };
 
@@ -28,7 +32,7 @@ exports.getById = async(id) => {
 };
 
 exports.create = async(data) => {
-	data.dataNascimento = moment(data.dataNascimento, "DD/MM/YYYY").format('MM-DD-YYYY');
+	data.dataNascimento = moment(data.dataNascimento, "DD/MM/YYYY", "pt-BR").format('MM-DD-YYYY', 'pt-BR');
 	var animal = new Animal(data);
 	const res = await animal.save();
 	return res;

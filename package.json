@@ -1,5 +1,5 @@
 {
-  "name": "BackEndHarras",
+  "name": "backendharras",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -15,6 +15,7 @@
     "express": "^4.16.2",
     "http": "0.0.0",
     "moment": "^2.19.1",
+    "mongodb-autoincrement": "^1.0.1",
     "mongoose": "^4.11.0"
   },
   "devDependencies": {

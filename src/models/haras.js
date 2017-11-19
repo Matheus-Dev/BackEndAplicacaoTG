@@ -4,6 +4,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+	codigo : {
+		type : String,
+		required : true,
+		unique : true,
+		minlength : 5,
+		maxlength : 5
+	},
 	nomeFantasia : {
 		type : String,
 		required : true
