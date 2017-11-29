@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-	tipo : {
+	marca : {
 		type : String,
 		required : true
 	},
-	marca : {
+	tipo : {
 		type : String,
 		required : true
 	},

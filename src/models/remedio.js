@@ -22,7 +22,6 @@ const schema = new Schema({
 	},
 	observacoes : { 
 		type: String, 
-		required : true
 	},
 	haras : {
 		type: Schema.Types.ObjectId, 

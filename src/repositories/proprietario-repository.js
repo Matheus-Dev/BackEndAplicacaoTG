@@ -6,7 +6,9 @@ const Proprietario = mongoose.model('Proprietario');
 exports.get = async() => {
 	const res = await 
 		Proprietario
-		.find({});
+		.find({})
+		.populate('haras', 'codigo nomeFantasia proprietario.nome')
+		;
 	return res;
 };
 

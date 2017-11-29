@@ -6,7 +6,9 @@ const Veterinario = mongoose.model('Veterinario');
 exports.get = async() => {
 	const res = await 
 		Veterinario
-		.find({});
+		.find({})
+		.populate('haras','codigo nomeFantasia proprietario.nome')
+		;
 	return res;
 };
 

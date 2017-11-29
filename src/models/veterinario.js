@@ -57,8 +57,8 @@ const schema = new Schema({
 		}
 	},
 	haras : {
-		type : String,
-		required : true
+		type: Schema.Types.ObjectId, 
+		ref: 'Haras'
 	}
 });
 

@@ -19,6 +19,8 @@ const Endereco = require('./models/endereco');
 const Proprietario = require('./models/proprietario');
 const Remedio = require('./models/remedio');
 const Veterinario = require('./models/veterinario');
+const Atividade = require('./models/atividade');
+const Teste = require('./models/teste');
 const Haras = require('./models/haras');
 
 const indexRoute = require('./routes/index-route');
@@ -28,6 +30,8 @@ const colaboradorRoute = require('./routes/colaborador-route');
 const proprietarioRoute = require('./routes/proprietario-route');
 const remedioRoute = require('./routes/remedio-route');
 const veterinarioRoute = require('./routes/veterinario-route');
+const atividadeRoute = require('./routes/atividade-route');
+const testeRoute = require('./routes/teste-route');
 const harasRoute = require('./routes/haras-route');
 
 app.use(bodyParser.json());
@@ -40,6 +44,8 @@ app.use('/colaborador',colaboradorRoute);
 app.use('/proprietario',proprietarioRoute);
 app.use('/remedio',remedioRoute);
 app.use('/veterinario',veterinarioRoute);
+app.use('/atividade',atividadeRoute);
+app.use('/teste',testeRoute);
 app.use('/haras',harasRoute);
 
 module.exports = app;
