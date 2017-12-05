@@ -4,14 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 const config = require('./config');
 
 const app = express();
 
-mongoose.connect(config.connectionString);
+var connection = mongoose.connect(config.connectionString);
+autoIncrement.initialize(connection);
 
-//const Contato = require('./models/contato');
-//const Operadora = require('./models/operadora');
 const Alimento = require('./models/alimento');
 const Animal = require('./models/animal');
 const Colaborador = require('./models/colaborador');

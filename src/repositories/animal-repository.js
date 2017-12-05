@@ -15,6 +15,40 @@ exports.get = async() => {
 	return res;
 };
 
+exports.getPorHaras = async(id) => {
+	const res = await 
+		Animal
+		.find({
+			haras: id		})
+		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		;
+
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
+	
+};
+
+exports.getValidos = async(id) => {
+	const res = await 
+		Animal
+		.find({
+			haras: id,
+			isAtivo: true
+		})
+		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		;
+
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
+	
+};
+
 exports.getByNome = async(nome) => {
 	const res = await 
 		Animal
@@ -27,7 +61,9 @@ exports.getByNome = async(nome) => {
 exports.getById = async(id) => {
 	const res = await
 		Animal
-		.findById(id);
+		.findById(id)
+		.populate('proprietario','nome -_id')
+		;
 	return res;
 };
 
@@ -49,7 +85,8 @@ exports.update = async(id, data) => {
 					sexo : data.sexo,
 					proprietario : data.proprietario,
 					veterinario : data.veterinario,
-					image : data.image
+					image : data.image,
+					isAtivo: data.isAtivo
 				}
 			});
 	return res;

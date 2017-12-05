@@ -43,8 +43,8 @@ exports.getById = async(id) => {
 
 exports.create = async(data) => {
 	//data.dataValidade = moment(data.dataCriacao, "DD/MM/YYYY").format('MM-DD-YYYY');
-	data.dataCriacao = moment(data.dataCriacao, "DD-MM-YYYY HH:mm").format('MM-DD-YYYY HH:mm');
+	//data.dataCriacao = moment(data.dataCriacao, "DD-MM-YYYY HH:mm").format('MM-DD-YYYY HH:mm');
 	var teste = new Teste(data);
 	const res = await teste.save();
-	return res;
+	return {status: 200, message : 'Deu certo', data: res};
 };

@@ -17,35 +17,16 @@ const schema = new Schema({
 		required : true
 	},
 	endereco : { 
-		
-		endereco : {
-		type : String,
-		required : true
-		},
-		cidade : {
-			type : String,
-			required : true
-		},
-		bairro : {
-			type : String,
-			required : true
-		},
-		uf : {
-			type : String,
-			required : true
-		},
-		cep : {
-			type : String,
-			required : true
-		},
-		numero : {
-			type : String,
-			required : true
-		},
+		type: Object,
+		required: true
 	},
 	haras : {
 		type: Schema.Types.ObjectId, 
 		ref: 'Haras' 
+	},
+	isAtivo : {
+		type : Boolean,
+		default : true
 	}
 });
 

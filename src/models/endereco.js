@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-	endereco : {
+	logradouro : {
 		type : String,
 		required : true
 	},
@@ -12,7 +12,7 @@ const schema = new Schema({
 		type : String,
 		required : true
 	},
-	cidade : {
+	localidade : {
 		type : String,
 		required : true
 	},

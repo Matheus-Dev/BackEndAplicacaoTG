@@ -2,18 +2,12 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
 
 const schema = new Schema({
 	codigo : {
-		type : String,
-		required : true,
-		unique : true,
-		minlength : 5,
-		maxlength : 5
-	},
-	nomeFantasia : {
-		type : String,
-		required : true
+		type : Number,
+		unique : true
 	},
 	razaoSocial : {
 		type : String,
@@ -22,6 +16,10 @@ const schema = new Schema({
 	inscricaoEstadual : {
 		type : String,
 		required : true
+	},
+	registrou : {
+		type : Boolean,
+		default: false
 	},
 	proprietario : { 
 		nome : {
@@ -36,59 +34,15 @@ const schema = new Schema({
 			type : String,
 			required : true
 		},
-		endereco : { 		
-			endereco : {
+		email: {
 			type : String,
 			required : true
-			},
-			cidade : {
-				type : String,
-				required : true
-			},
-			bairro : {
-				type : String,
-				required : true
-			},
-			uf : {
-				type : String,
-				required : true
-			},
-			cep : {
-				type : String,
-				required : true
-			},
-			numero : {
-				type : String,
-				required : true
-			}
 		}
 	},
 	endereco : {
-		endereco : {
-			type : String,
-			required : true
-		},
-		bairro : {
-			type : String,
-			required : true
-		},
-		cidade : {
-			type : String,
-			required : true
-		},
-		uf : {
-			type : String,
-			required : true
-		},
-		cep : {
-			type : String,
-			required : true
-		},
-		numero : {
-			type : String,
-			required : true
-		}
+		type: Object
 	}
 });
 
+schema.plugin(autoIncrement.plugin, { model: 'Haras', field: 'codigo', startAt: 1, });
 module.exports = mongoose.model('Haras', schema);

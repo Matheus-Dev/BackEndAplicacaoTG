@@ -16,6 +16,28 @@ exports.get = async(req, res, next) => {
 	}
 };
 
+exports.getPorHaras = async(req, res, next) => {
+	try{
+		var data = await repositoryVeterinario.getPorHaras(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
+exports.getValidos = async(req, res, next) => {
+	try{
+		var data = await repositoryVeterinario.getValidos(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
 exports.getByNome = async(req, res, next) => {
 	try{
 		var data = await repositoryVeterinario.getByNome(req.params.nome);

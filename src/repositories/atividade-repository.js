@@ -7,8 +7,9 @@ const moment = require('moment');
 exports.get = async() => {
 	const res = await 
 		Atividade
-		.find({});
-	return res;
+		.find({})
+		.populate('animal');
+	return {status: 200, message : 'Dados Recuperados!', data: res};
 };
 
 exports.getByCodigo = async(codigo) => {
@@ -17,28 +18,52 @@ exports.getByCodigo = async(codigo) => {
 		.find({
 				codigo: codigo
 			  });
-	return res;	
+	return {status: 200, message : 'Dados Recuperados!', data: res};	
 };
 
 exports.getById = async(id) => {
 	const res = await
 		Atividade
 		.findById(id);
-	return res;
+	return {status: 200, message : 'Dados Recuperados!', data: res};
 };
 
-exports.getAtividadesAnimal = async(idAnimal, idHaras, dtInicio, dtTermino) => {
+/*exports.getAtividadesAnimal = async(idAnimal, idHaras, dtInicio, dtTermino) => {
 	const res = await
 		Atividade
 		.find({
 			haras: idHaras,
-			animal: idAnimal,
 			dataCriacao : {
 				$gte : dtInicio,
 				$lte:  dtTermino
 			}
+		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
+		.populate('colaborador', 'nome login funcao -_id')
+		.populate({
+			path: 'animal',
+			match: {_id : idAnimal, haras: idHaras},
+			select: 'nome raca sexo -_id'
 		})
-		.populate('colaborador', 'nome -_id')
+		;
+	return res;
+};*/
+
+exports.getAtividadesAnimal = async(nomeAnimal, idHaras, dtInicio, dtTermino) => {
+	const res = await
+		Atividade
+		.find({
+			haras: idHaras,
+			dataCriacao : {
+				$gte : dtInicio,
+				$lte:  dtTermino
+			}
+		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
+		.populate('colaborador', 'nome login funcao -_id')
+		.populate({
+			path: 'animal',
+			match: {nome : nomeAnimal},
+			select: 'nome raca sexo'
+		})
 		;
 	return res;
 };
@@ -83,25 +108,23 @@ exports.create = async(data) => {
 	//data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYY HH:mm -0200');
 	var atividade = new Atividade(data);
 	const res = await atividade.save();
-	return res;
+	return {status: 200, message : 'Atividade Criada com Sucesso!', data: res};
 };
 
 exports.update = async(id, data) => {
 	const res = await Atividade
 			.findByIdAndUpdate(id, {
 				$set: {
-					codigo : data.codigo,
 					animal : data.animal,
 					detalhesAtividade: data.detalhesAtividade,
-					dataCriacao: data.dataCriacao,
 					colaborador: data.colaborador
 				}
 			});
-	return res;
+	return {status: 200, message : 'Atividade Atualizada com Sucesso!', data: res};
 };
 
 exports.delete = async(id) => {
 	const res = await Atividade
 			.findOneAndRemove(id);
-	return res;
+	return {status: 200, message : 'Atividade Excluida com Sucesso!', data: res};
 };

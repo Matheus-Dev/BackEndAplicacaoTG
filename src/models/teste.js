@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-	codigo : {
+	/*codigo : {
 		type : String,
 		required : true
 	},
@@ -16,6 +16,10 @@ const schema = new Schema({
 		type : Date,
 		required : true,
 		default: Date.now()
+	}*/
+	codigo : {
+		type : String,
+		required : true
 	}
 });
 

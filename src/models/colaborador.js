@@ -28,35 +28,16 @@ const schema = new Schema({
 		type : String,
 		required : true
 	},
-	endereco : { 
-		endereco : {
-		type : String,
-		required : true
-		},
-		bairro : {
-			type : String,
-			required : true
-		},
-		cidade : {
-			type : String,
-			required : true
-		},
-		uf : {
-			type : String,
-			required : true
-		},
-		cep : {
-			type : String,
-			required : true
-		},
-		numero : {
-			type : String,
-			required : true
-		} 
-	},
-	isativo : {
+	admin : {
 		type : Boolean,
-		required : true,
+		default: false
+	},
+	endereco : { 
+		type: Object,
+		required: true
+	},
+	isAtivo : {
+		type : Boolean,
 		default : true
 	},
 	haras : {

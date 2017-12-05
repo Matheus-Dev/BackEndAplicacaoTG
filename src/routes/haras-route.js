@@ -10,6 +10,8 @@ router.get('/buscar/nome/:nome', controller.getByNome);
 
 router.get('/buscar/id/:id', controller.getById);
 
+router.get('/registrado/:id', controller.getHarasRegistrado);
+
 router.post('/adicionar', controller.post);
 
 router.put('/atualizar/:id', controller.put);

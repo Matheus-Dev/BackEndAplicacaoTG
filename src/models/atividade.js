@@ -2,11 +2,12 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
+
 
 const schema = new Schema({
 	codigo : {
-		type : String,
-		required : true
+		type : Number
 	},
 	tipo : {
 		type : String,
@@ -35,4 +36,5 @@ const schema = new Schema({
 	}
 });
 
+schema.plugin(autoIncrement.plugin, { model: 'Servico', field: 'codigo', startAt: 1, });
 module.exports = mongoose.model('Servico', schema);

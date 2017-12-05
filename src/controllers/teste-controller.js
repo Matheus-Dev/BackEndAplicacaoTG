@@ -51,10 +51,8 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {
 	try{
-		await repositoryTeste.create(req.body);
-		res.status(201).send({
-			message: 'Teste adicionado!'
-		});
+		var data = await repositoryTeste.create(req.body);
+		res.status(201).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Teste!', data:e

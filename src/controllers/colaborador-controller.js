@@ -8,7 +8,7 @@ const repositoryColaborador = require('../repositories/colaborador-repository');
 exports.get = async(req, res, next) => {
 	try{
 		var data = await repositoryColaborador.get();
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message : 'Falha ao buscar Colaboradors!', data:e
@@ -16,10 +16,32 @@ exports.get = async(req, res, next) => {
 	}
 };
 
+exports.getPorHaras = async(req, res, next) => {
+	try{
+		var data = await repositoryColaborador.getPorHaras(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
+exports.getValidos = async(req, res, next) => {
+	try{
+		var data = await repositoryColaborador.getValidos(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
 exports.getByNome = async(req, res, next) => {
 	try{
 		var data = await repositoryColaborador.getByNome(req.params.nome);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Colaboradors!', data:e
@@ -30,7 +52,7 @@ exports.getByNome = async(req, res, next) => {
 exports.getById = async(req, res, next) => {
 	try{
 		var data = await repositoryColaborador.getById(req.params.id);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Colaboradors!', data:e
@@ -40,10 +62,8 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {
 	try{
-		await repositoryColaborador.create(req.body);
-		res.status(201).send({
-			message: 'Colaborador adicionado!'
-		});
+		var data = await repositoryColaborador.create(req.body);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Colaborador!', data:e
@@ -53,10 +73,8 @@ exports.post = async(req, res, next) => {
 
 exports.put = async(req, res, next) => {
 	try{
-		await repositoryColaborador.update(req.params.id, req.body);
-		res.status(201).send({
-			message: 'Colaborador atualizado!'
-		});
+		var data = await repositoryColaborador.update(req.params.id, req.body);
+		res.status(data.status).send(data);
 
 	}catch (e) {
 		res.status(400).send({
@@ -67,13 +85,23 @@ exports.put = async(req, res, next) => {
 
 exports.delete = async(req, res, next) => {
 	try{
-		await repositoryColaborador.delete(req.params.id);
-		res.status(201).send({
-			message: 'Colaborador removido!'
-		});
+		var data = await repositoryColaborador.delete(req.params.id);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao remover o Colaborador!', data:e
+		});
+	}
+};
+
+exports.authenticate = async(req, res, next) => {
+	try{
+		var data = await repositoryColaborador.authenticate(req.params.codHaras, req.params.login, req.params.senha);
+		res.status(data.status).send(data);
+
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao tentar fazer o login!', data:e
 		});
 	}
 };

@@ -26,6 +26,10 @@ const schema = new Schema({
 	haras : {
 		type: Schema.Types.ObjectId, 
 		ref: 'Haras' 
+	},
+	isValido : {
+		type : Boolean,
+		default : true
 	}
 });
 

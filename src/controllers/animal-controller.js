@@ -8,7 +8,7 @@ const repositoryAnimal = require('../repositories/animal-repository');
 exports.get = async(req, res, next) => {
 	try{
 		var data = await repositoryAnimal.get();
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message : 'Falha ao buscar Animals!', data:e
@@ -16,10 +16,32 @@ exports.get = async(req, res, next) => {
 	}
 };
 
+exports.getPorHaras = async(req, res, next) => {
+	try{
+		var data = await repositoryAnimal.getPorHaras(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
+exports.getValidos = async(req, res, next) => {
+	try{
+		var data = await repositoryAnimal.getValidos(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Proprietarios!', data:e
+		});
+	}
+};
+
 exports.getByNome = async(req, res, next) => {
 	try{
 		var data = await repositoryAnimal.getByNome(req.params.nome);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Animals!', data:e
@@ -30,7 +52,7 @@ exports.getByNome = async(req, res, next) => {
 exports.getById = async(req, res, next) => {
 	try{
 		var data = await repositoryAnimal.getById(req.params.id);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Animals!', data:e
@@ -40,10 +62,8 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {
 	try{
-		await repositoryAnimal.create(req.body);
-		res.status(201).send({
-			message: 'Animal adicionado!'
-		});
+		var data = await repositoryAnimal.create(req.body);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Animal!', data:e
@@ -53,11 +73,8 @@ exports.post = async(req, res, next) => {
 
 exports.put = async(req, res, next) => {
 	try{
-		await repositoryAnimal.update(req.params.id, req.body);
-		res.status(201).send({
-			message: 'Animal atualizado!'
-		});
-
+		var data = await repositoryAnimal.update(req.params.id, req.body);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao atualizar o Animal!', data:e
@@ -67,10 +84,8 @@ exports.put = async(req, res, next) => {
 
 exports.delete = async(req, res, next) => {
 	try{
-		await repositoryAnimal.delete(req.params.id);
-		res.status(201).send({
-			message: 'Animal removido!'
-		});
+		var data = await repositoryAnimal.delete(req.params.id);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao remover o Animal!', data:e

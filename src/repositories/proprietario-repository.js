@@ -3,13 +3,54 @@
 const mongoose = require('mongoose');
 const Proprietario = mongoose.model('Proprietario');
 
-exports.get = async() => {
+exports.get = async(id) => {
 	const res = await 
 		Proprietario
-		.find({})
+		.find({
+		})
+		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		;
+
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
+	
+};
+
+exports.getPorHaras = async(id) => {
+	const res = await 
+		Proprietario
+		.find({
+			haras: id		})
+		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		;
+
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
+	
+};
+
+exports.getValidos = async(id) => {
+	const res = await 
+		Proprietario
+		.find({
+			haras: id,
+			isAtivo: true
+		})
 		.populate('haras', 'codigo nomeFantasia proprietario.nome')
 		;
-	return res;
+
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
+	
 };
 
 exports.getByNome = async(nome) => {
@@ -31,7 +72,7 @@ exports.getById = async(id) => {
 exports.create = async(data) => {
 	var proprietario = new Proprietario(data);
 	const res = await proprietario.save();
-	return res;
+	return {status: 200, message : 'Proprietario cadastrado com Sucesso', data: res};
 };
 
 exports.update = async(id, data) => {
@@ -42,13 +83,14 @@ exports.update = async(id, data) => {
 					cpf : data.cpf,
 					telefone : data.telefone,
 					endereco : data.endereco,
+					isAtivo: data.isAtivo
 				}
 			});
-	return res;
+	return {status: 200, message : 'Proprietario Atualizado com Sucesso', data: res};
 };
 
 exports.delete = async(id) => {
 	const res = await Proprietario
 			.findOneAndRemove(id);
-	return res;
+	return {status: 200, message : 'Proprietario excluido com Sucesso', data: res};
 };
