@@ -1,7 +1,15 @@
 //global.SALT_KEY = '54D83741-6E01-4447-A19E-4C55E25F7083';
-global.EMAIL_TMPL = 'Sua Chave de Registro: <strong>{0}</strong>.';
+global.EMAIL_TMPL_KEY = 
+'<p>Obrigado por utilizar o Aplicativo HarasMobile.</p>'+
+'<p>Para finalizar o seu cadastro, por favor, informe a sua chave de registro no Aplicativo.</p>'+
+'<p>Sua Chave de Registro: <strong>{0}</strong>.</p>';
+
+global.EMAIL_TMPL_REG = 
+'<p>Parabéns <strong>{nomeUsuario}</strong>.</p>'+
+'<p>Você concluiu o cadastro do seu haras no HarasMobile.</p>'+
+'<p>Abaixo segue o código do seu haras que deve ser informado para realizar o login no aplicativo.</p>'+
+'<p>Código do Haras: <strong>{codigoHaras}</strong></p>.';
 
 module.exports = {
-    //connectionString: 'mongodb://admin:harasadmin@ds042607.mlab.com:42607/haraswebdb'
     //connectionString: 'mongodb://localhost/aplicacaotg'
 }

@@ -15,7 +15,8 @@ const schema = new Schema({
 	},
 	inscricaoEstadual : {
 		type : String,
-		required : true
+		required : true,
+		unique: true
 	},
 	registrou : {
 		type : Boolean,

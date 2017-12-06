@@ -54,10 +54,9 @@ exports.getHarasRegistrado = async(req, res, next) => {
 exports.post = async(req, res, next) => {
 	try{
 		var data = await repositoryHaras.create(req.body);
-
-		emailService.send(req.body.proprietario.email, 'Chave de Registro', global.EMAIL_TMPL.replace(data.data._id));
-
+		emailService.send(req.body.proprietario.email, 'Chave de Registro - HarasMobile', global.EMAIL_TMPL_KEY.replace('{0}',data.data._id));
 		res.status(data.status).send(data);
+
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Haras!', data:e
@@ -68,6 +67,14 @@ exports.post = async(req, res, next) => {
 exports.put = async(req, res, next) => {
 	try{
 		var data = await repositoryHaras.update(req.params.id, req.body);
+
+		emailService.send(req.body.proprietario.email, 
+			'Conclusão Cadastro - HarasMobile', 
+			global.EMAIL_TMPL_REG
+			.replace('{nomeUsuario}',data.data.proprietario.nome)
+			.replace('{codigoHaras}', data.data.codigo)
+			);
+
 		res.status(data.status).send(data);
 
 	}catch (e) {

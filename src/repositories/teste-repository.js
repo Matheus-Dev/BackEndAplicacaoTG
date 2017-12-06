@@ -45,6 +45,6 @@ exports.create = async(data) => {
 	//data.dataValidade = moment(data.dataCriacao, "DD/MM/YYYY").format('MM-DD-YYYY');
 	//data.dataCriacao = moment(data.dataCriacao, "DD-MM-YYYY HH:mm").format('MM-DD-YYYY HH:mm');
 	var teste = new Teste(data);
-	const res = await teste.save();
+	//const res = await teste.save();
 	return {status: 200, message : 'Deu certo', data: res};
 };
