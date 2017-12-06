@@ -114,7 +114,7 @@ exports.authenticate = async(codHaras, login, senha) => {
 		return {status: 201, message: 'Não existe usuário com esse login no haras informado!'};
 	} 
 
-	if(res.senha == senha && res.isativo == true){
+	if(res.senha == senha && res.isAtivo == true){
 		return {status: 200, data: res, message: 'Deu Certo!'};
 	}else{
 		return {status: 201, message: 'Login ou Senha Incorretos'};
