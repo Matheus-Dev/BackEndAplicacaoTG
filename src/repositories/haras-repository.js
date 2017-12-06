@@ -48,7 +48,7 @@ exports.getHarasRegistrado = async(id) => {
 exports.create = async(data) => {
 	var haras = new Haras(data);
 	const res = await haras.save();
-	return {status: 200, message : 'Pré Cadastro do Haras Realizado com Sucesso!', data: res};
+	return {status: 200, message : 'Pré Cadastro Realizado com Sucesso!', data: res};
 };
 
 exports.update = async(id, data) => {
@@ -62,7 +62,7 @@ exports.update = async(id, data) => {
 					registrou: true
 				}
 			});
-	return {status: 200, message : 'Cadastro Concluído com sucesso', data: res};
+	return {status: 200, message : 'Haras Cadastrado com sucesso', data: res};
 };
 
 exports.delete = async(id) => {
