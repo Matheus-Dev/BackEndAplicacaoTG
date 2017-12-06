@@ -6,6 +6,10 @@ const controller = require('../controllers/veterinario-controller');
 
 router.get('/', controller.get);
 
+router.get('/buscar/todos/:id', controller.getPorHaras);
+
+router.get('/buscar/ativos/:id', controller.getValidos);
+
 router.get('/buscar/nome/:nome', controller.getByNome);
 
 router.get('/buscar/id/:id', controller.getById);

@@ -41,7 +41,7 @@ exports.getValidos = async(req, res, next) => {
 exports.getByNome = async(req, res, next) => {
 	try{
 		var data = await repositoryRemedio.getByNome(req.params.nome);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Remedios!', data:e
@@ -52,7 +52,7 @@ exports.getByNome = async(req, res, next) => {
 exports.getById = async(req, res, next) => {
 	try{
 		var data = await repositoryRemedio.getById(req.params.id);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Remedios!', data:e
@@ -62,10 +62,8 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {
 	try{
-		await repositoryRemedio.create(req.body);
-		res.status(201).send({
-			message: 'Remedio adicionado!'
-		});
+		var data = await repositoryRemedio.create(req.body);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Remedio!', data:e
@@ -75,10 +73,8 @@ exports.post = async(req, res, next) => {
 
 exports.put = async(req, res, next) => {
 	try{
-		await repositoryRemedio.update(req.params.id, req.body);
-		res.status(201).send({
-			message: 'Remedio atualizado!'
-		});
+		var data = await repositoryRemedio.update(req.params.id, req.body);
+		res.status(data.status).send(data);
 
 	}catch (e) {
 		res.status(400).send({
@@ -89,10 +85,8 @@ exports.put = async(req, res, next) => {
 
 exports.delete = async(req, res, next) => {
 	try{
-		await repositoryRemedio.delete(req.params.id);
-		res.status(201).send({
-			message: 'Remedio removido!'
-		});
+		var data = await repositoryRemedio.delete(req.params.id);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao remover o Remedio!', data:e
