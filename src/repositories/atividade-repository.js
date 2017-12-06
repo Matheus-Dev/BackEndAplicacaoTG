@@ -64,6 +64,7 @@ exports.getAtividadesAnimal = async(nomeAnimal, idHaras, dtInicio, dtTermino) =>
 			match: {nome : nomeAnimal},
 			select: 'nome raca sexo'
 		})
+		.populate('haras')
 		;
 	return res;
 };

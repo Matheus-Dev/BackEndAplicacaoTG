@@ -23,7 +23,7 @@ const schema = new Schema({
 	},
 	dataCriacao: {
 		type : Date,
-		required : true,
+		//required : true,
 		default: Date.now()
 	},
 	colaborador: {

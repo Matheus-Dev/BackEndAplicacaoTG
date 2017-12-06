@@ -5,6 +5,8 @@ const Haras = mongoose.model('Haras');
 
 const repositoryHaras = require('../repositories/haras-repository');
 
+const emailService = require('../services/email-service');
+
 exports.get = async(req, res, next) => {
 	try{
 		var data = await repositoryHaras.get();
@@ -52,6 +54,9 @@ exports.getHarasRegistrado = async(req, res, next) => {
 exports.post = async(req, res, next) => {
 	try{
 		var data = await repositoryHaras.create(req.body);
+
+		emailService.send(req.body.email, 'Chave de Registro', global.EMAIL_TMPL.replace(data.data._id));
+
 		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({

@@ -36,19 +36,19 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
 		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(req.params.nomeAnimal,
 		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
-		
-		console.log(dataAtividade);
 
-		if(dataAtividade != undefined && dataAtividade[0].animal != null){
+		if(dataAtividade.length > 0){
 
-		var dataHaras = await repositoryHaras.getById(req.params.idHaras);
+			console.log("Vai ser gerado um relatório!");
 
-		var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal._id);
+			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
 
-		var width = 792;
-		var height = 792;
+			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal._id);
 
-		var tamFont = 14;
+			var width = 792;
+			var height = 792;
+
+			var tamFont = 14;
 
 			const doc = new PDFDocument({
 				size: [864, 864]
@@ -77,12 +77,12 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.font('Times-Roman').fontSize(tamFont);
 
 			doc
-			.text('NOME DO HARAS: '+dataHaras.nomeFantasia.toUpperCase(), {align: 'left',continued: false})
-			.text('ENDEREÇO: '+dataHaras.endereco.endereco.toUpperCase(), {align: 'left',continued: true})
-			.text('NÚMERO: '+dataHaras.endereco.numero, {align: 'center',continued: false})
-			.text('CEP: '+dataHaras.endereco.cep, {align: 'left',continued: true})
-			.text('CIDADE: '+dataHaras.endereco.cidade.toUpperCase(), {align: 'center',continued: true})
-			.text('UF: '+dataHaras.endereco.uf, {align: 'right',continued: false})
+			.text('NOME DO HARAS: '+dataHaras.data.razaoSocial.toUpperCase(), {align: 'left',continued: false})
+			.text('ENDEREÇO: '+dataHaras.data.endereco.logradouro.toUpperCase(), {align: 'left',continued: true})
+			.text('NÚMERO: '+dataHaras.data.endereco.numero, {align: 'center',continued: false})
+			.text('CEP: '+dataHaras.data.endereco.cep, {align: 'left',continued: true})
+			.text('CIDADE: '+dataHaras.data.endereco.localidade.toUpperCase(), {align: 'center',continued: true})
+			.text('UF: '+dataHaras.data.endereco.uf, {align: 'right',continued: false})
 			.moveDown(1);
 			;
 
@@ -94,15 +94,15 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.moveDown(1);
 
 	   		doc
-	   		.image('C:/Users/Desenvolvedor/Documents/BackEnd_Haras_TG/src/controllers/cavalo_padrao.jpeg', doc.x+12, doc.y+12, {fit: [144, 144]})
+	   		//.image('C:/Users/Desenvolvedor/Documents/BackEnd_Haras_TG/src/controllers/cavalo_padrao.jpeg', doc.x+12, doc.y+12, {fit: [144, 144]})
 		   	.rect(doc.x, doc.y, 168, 156)
 		   	.stroke()
-			.text('CHIP: '+dataAnimal.codigo, 250, doc.y,{continued: false, lineGap: 10})
-			.text('NOME DO ANIMAL: '+dataAnimal.nome.toUpperCase(), 250, doc.y,{continued: false, lineGap: 10})
-			.text('RAÇA: '+dataAnimal.raca.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
-			.text('SEXO: '+dataAnimal.sexo.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
-			.text('DATA DE NASCIMENTO: '+moment(dataAnimal.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
-			.text('PROPRIETÁRIO: '+dataAnimal.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
+			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y,{continued: false, lineGap: 10})
+			.text('NOME DO ANIMAL: '+dataAnimal.data.nome.toUpperCase(), 250, doc.y,{continued: false, lineGap: 10})
+			.text('RAÇA: '+dataAnimal.data.raca.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
+			.text('SEXO: '+dataAnimal.data.sexo.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
+			.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
+			.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.moveDown(1);
 			;
 
@@ -163,7 +163,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			doc.end();
 
 		}else{
-			res.status(200).send({
+			res.status(204).send({
 				message: 'Não foram encontradas atividades!'
 			});
 		}

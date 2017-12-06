@@ -12,7 +12,7 @@ exports.get = async() => {
 		.populate('proprietario')
 		.populate('veterinario')
 		;
-	return res;
+	return {status: 200, message : 'Dados Recuperados!', data: res};
 };
 
 exports.getPorHaras = async(id) => {
@@ -55,7 +55,11 @@ exports.getByNome = async(nome) => {
 		.find({
 				nome: nome
 			  });
-	return res;	
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getById = async(id) => {
@@ -64,14 +68,18 @@ exports.getById = async(id) => {
 		.findById(id)
 		.populate('proprietario','nome -_id')
 		;
-	return res;
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.create = async(data) => {
 	data.dataNascimento = moment(data.dataNascimento, "DD/MM/YYYY", "pt-BR").format('MM-DD-YYYY', 'pt-BR');
 	var animal = new Animal(data);
 	const res = await animal.save();
-	return res;
+	return {status: 200, message : 'Animal Adicionado com Sucesso!', data: res};
 };
 
 exports.update = async(id, data) => {
@@ -89,11 +97,11 @@ exports.update = async(id, data) => {
 					isAtivo: data.isAtivo
 				}
 			});
-	return res;
+	return {status: 200, message : 'Animal Adicionado com Sucesso!', data: res};
 };
 
 exports.delete = async(id) => {
 	const res = await Animal
 			.findOneAndRemove(id);
-	return res;
+	return {status: 200, message : 'Animal Adicionado com Sucesso!', data: res};
 };
