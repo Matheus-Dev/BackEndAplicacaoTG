@@ -55,7 +55,7 @@ exports.post = async(req, res, next) => {
 	try{
 		var data = await repositoryHaras.create(req.body);
 
-		emailService.send(req.body.email, 'Chave de Registro', global.EMAIL_TMPL.replace(data.data._id));
+		emailService.send(req.body.proprietario.email, 'Chave de Registro', global.EMAIL_TMPL.replace(data.data._id));
 
 		res.status(data.status).send(data);
 	}catch (e) {
