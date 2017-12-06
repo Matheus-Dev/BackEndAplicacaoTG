@@ -9,7 +9,8 @@ const config = require('./config');
 
 const app = express();
 
-var connection = mongoose.connect(config.connectionString);
+//var connection = mongoose.connect(config.connectionString);
+var connection = mongoose.connect(process.env.CONNECT_STRING_DB);
 autoIncrement.initialize(connection);
 
 const Alimento = require('./models/alimento');
