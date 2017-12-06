@@ -62,7 +62,7 @@ exports.update = async(id, data) => {
 					registrou: true
 				}
 			});
-	return {status: 200, message : 'Cadastro do Haras Concluído com sucesso', data: res};
+	return {status: 200, message : 'Cadastro Concluído com sucesso', data: res};
 };
 
 exports.delete = async(id) => {
