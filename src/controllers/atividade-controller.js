@@ -97,7 +97,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	   		doc.moveDown(1);
 
-	   		doc
+	   		/*doc
 	   		//.image(dataAnimal.data.image, doc.x+12, doc.y+12, {fit: [144, 144]})
 		   	.rect(doc.x, doc.y, 168, 156)
 		   	.stroke()
@@ -164,7 +164,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			}
 
 	  		doc.pipe(res);
-			doc.end();
+			doc.end();*/
 
 		}else{
 			res.status(204).send({
