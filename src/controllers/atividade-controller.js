@@ -35,7 +35,7 @@ exports.getAtividadesColaborador = async(req, res, next) => {
 exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
 
-		var animal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
+		var dataAnimal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
 		
 		//if(animal.status == 204){
 			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(animal.data._id,
@@ -47,7 +47,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
 			//await repositoryAnimal.getById(dataAtividade[0].animal._id);
-			var dataAnimal = animal;
+			//var dataAnimal = animal;
 
 			var width = 792;
 			var height = 792;
