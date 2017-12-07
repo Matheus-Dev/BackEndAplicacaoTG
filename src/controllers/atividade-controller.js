@@ -37,7 +37,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(req.params.nomeAnimal,
 		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
-		if(dataAtividade.length > 0){
+		/*if(dataAtividade.length > 0){
 
 			console.log("Vai ser gerado um relatório!");
 
@@ -166,8 +166,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			res.status(204).send({
 				message: 'Não foram encontradas atividades!'
 			});
-		}
-		//res.status(200).send(dataAtividade);
+		}*/
+		res.status(200).send(dataAtividade);
 		
 	}catch (e) {
 		res.status(400).send({
