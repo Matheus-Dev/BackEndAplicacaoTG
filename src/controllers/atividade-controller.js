@@ -34,10 +34,13 @@ exports.getAtividadesColaborador = async(req, res, next) => {
 
 exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
-		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(req.params.nomeAnimal,
-		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
-		/*if(dataAtividade.length > 0){
+		var dataAnimal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
+
+		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(dataAnimal.data._id,
+		req.params.idHaras);
+
+		if(dataAtividade.length > 0){
 
 			console.log("Vai ser gerado um relatório!");
 
@@ -166,8 +169,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			res.status(204).send({
 				message: 'Não foram encontradas atividades!'
 			});
-		}*/
-		res.status(200).send(dataAtividade);
+		}
+		//res.status(200).send(dataAtividade);
 		
 	}catch (e) {
 		res.status(400).send({

@@ -48,23 +48,28 @@ exports.getById = async(id) => {
 	return res;
 };*/
 
-exports.getAtividadesAnimal = async(nomeAnimal, idHaras, dtInicio, dtTermino) => {
+exports.getAtividadesAnimal = async(id, idHaras) => {
 	const res = await
 		Atividade
 		.find({
-			haras: idHaras,
-			dataCriacao : {
+			animal : id
+			/*dataCriacao : {
 				$gte : dtInicio,
 				$lte:  dtTermino
-			}
+			}*/
 		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
+		//.where('animal._id').equals(id)
+		//.where('idHaras').equals(idHaras)
 		.populate('colaborador', 'nome login funcao -_id')
 		.populate({
 			path: 'animal',
-			match: {nome : nomeAnimal},
+			match: {_id : id},
 			select: 'nome raca sexo'
 		})
-		.populate('haras')
+		.populate({
+			path: 'haras',
+			match: {_id : idHaras}
+		})
 		;
 	return res;
 };
