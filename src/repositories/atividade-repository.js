@@ -90,6 +90,30 @@ exports.getAtividadesColaborador = async(idColaborador, idHaras, dtInicio, dtTer
 	return res;
 };
 
+exports.getAtividadesProprietario = async(id, idHaras) => {
+	const res = await
+		Atividade
+		.find({
+			haras : idHaras
+			/*dataCriacao : {
+				$gte : dtInicio,
+				$lte:  dtTermino
+			}*/
+		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
+		//.where('animal._id').equals(id)
+		//.where('idHaras').equals(idHaras)
+		.populate('colaborador', 'nome login funcao -_id')
+		.populate({
+			path: 'animal',
+			match: {colaborador : id},
+			select: 'nome raca sexo'
+		})
+		.populate('haras')
+		;
+	return res;
+};
+
+/*
 exports.getAtividadesProprietario = async(idProprietario, idHaras, dtInicio, dtTermino) => {
 	const res = await
 		Atividade
@@ -109,7 +133,7 @@ exports.getAtividadesProprietario = async(idProprietario, idHaras, dtInicio, dtT
 		;
 	return res;
 };
-
+*/
 exports.create = async(data) => {
 	//data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYY HH:mm -0200');
 	var atividade = new Atividade(data);
