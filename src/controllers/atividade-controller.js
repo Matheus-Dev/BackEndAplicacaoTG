@@ -178,7 +178,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	//}
 	
 		
-		res.status(200).send(animal);
+		//res.status(200).send(animal);
 	}catch (e) {
 		res.status(400).send({
 			message : 'Falha ao buscar Atividades!', data:e
