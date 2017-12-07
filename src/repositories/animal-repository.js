@@ -53,7 +53,7 @@ exports.getByNome = async(nome) => {
 	const res = await 
 		Animal
 		.find({
-				'nome': 'nome'
+				nome: 'nome'
 			  });
 	if(res.length == 0){
 		return {status: 204, message : 'Nenhum Dado Encontrado'};

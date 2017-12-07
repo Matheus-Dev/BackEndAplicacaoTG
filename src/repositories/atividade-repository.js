@@ -48,7 +48,7 @@ exports.getById = async(id) => {
 	return res;
 };*/
 
-exports.getAtividadesAnimal = async(nomeAnimal, idHaras, dtInicio, dtTermino) => {
+exports.getAtividadesAnimal = async(id, idHaras, dtInicio, dtTermino) => {
 	const res = await
 		Atividade
 		.find({
@@ -61,7 +61,7 @@ exports.getAtividadesAnimal = async(nomeAnimal, idHaras, dtInicio, dtTermino) =>
 		.populate('colaborador', 'nome login funcao -_id')
 		.populate({
 			path: 'animal',
-			match: {nome : nomeAnimal},
+			match: {_id : id},
 			select: 'nome raca sexo'
 		})
 		.populate('haras')
