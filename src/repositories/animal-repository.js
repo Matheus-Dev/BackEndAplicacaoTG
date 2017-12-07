@@ -52,7 +52,7 @@ exports.getValidos = async(id) => {
 exports.getByNome = async(nome) => {
 	const res = await 
 		Animal
-		.find({
+		.findOne({
 				nome: nome
 			  });
 	if(res.length == 0){

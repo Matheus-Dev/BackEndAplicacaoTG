@@ -36,7 +36,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
 
 		var animal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
-		/*
+		
 		//if(animal.status == 204){
 			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(animal.data._id,
 			req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
@@ -176,7 +176,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 				//message: 'Não foram encontradas atividades!'
 			//});
 	//}
-	*/
+	
 		
 		res.status(200).send(animal);
 	}catch (e) {
