@@ -41,7 +41,7 @@ exports.getValidos = async(req, res, next) => {
 exports.getByNome = async(req, res, next) => {
 	try{
 		var data = await repositoryVeterinario.getByNome(req.params.nome);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Veterinarios!', data:e
@@ -52,7 +52,7 @@ exports.getByNome = async(req, res, next) => {
 exports.getById = async(req, res, next) => {
 	try{
 		var data = await repositoryVeterinario.getById(req.params.id);
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao buscar Veterinarios!', data:e
@@ -62,10 +62,8 @@ exports.getById = async(req, res, next) => {
 
 exports.post = async(req, res, next) => {
 	try{
-		await repositoryVeterinario.create(req.body);
-		res.status(201).send({
-			message: 'Veterinario adicionado!'
-		});
+		var data = await repositoryVeterinario.create(req.body);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao cadastrar Veterinario!', data:e
@@ -75,10 +73,8 @@ exports.post = async(req, res, next) => {
 
 exports.put = async(req, res, next) => {
 	try{
-		await repositoryVeterinario.update(req.params.id, req.body);
-		res.status(201).send({
-			message: 'Veterinario atualizado!'
-		});
+		var data = await repositoryVeterinario.update(req.params.id, req.body);
+		res.status(data.status).send(data);
 
 	}catch (e) {
 		res.status(400).send({
@@ -89,10 +85,8 @@ exports.put = async(req, res, next) => {
 
 exports.delete = async(req, res, next) => {
 	try{
-		await repositoryVeterinario.delete(req.params.id);
-		res.status(201).send({
-			message: 'Veterinario removido!'
-		});
+		var data = await repositoryVeterinario.delete(req.params.id);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message: 'Falha ao remover o Veterinario!', data:e

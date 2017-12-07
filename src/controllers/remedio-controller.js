@@ -8,7 +8,7 @@ const repositoryRemedio = require('../repositories/remedio-repository');
 exports.get = async(req, res, next) => {
 	try{
 		var data = await repositoryRemedio.get();
-		res.status(200).send(data);
+		res.status(data.status).send(data);
 	}catch (e) {
 		res.status(400).send({
 			message : 'Falha ao buscar Remedios!', data:e
