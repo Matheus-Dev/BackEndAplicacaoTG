@@ -37,7 +37,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 		var animal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
 
-		if(animal.status == 204){
+		//if(animal.status == 204){
 			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(animal.data._id,
 			req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
@@ -105,8 +105,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			.text('NOME DO ANIMAL: '+dataAnimal.data.nome.toUpperCase(), 250, doc.y,{continued: false, lineGap: 10})
 			.text('RAÇA: '+dataAnimal.data.raca.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.text('SEXO: '+dataAnimal.data.sexo.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
-			.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
-			.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
+			//.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
+			//.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.moveDown(1);
 			;
 
@@ -171,11 +171,11 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 				message: 'Não foram encontradas atividades!'
 			});
 		}
-	}else{
-		res.status(204).send({
-				message: 'Não foram encontradas atividades!'
-			});
-	}
+	//}else{
+		//res.status(204).send({
+				//message: 'Não foram encontradas atividades!'
+			//});
+	//}
 
 		
 		
