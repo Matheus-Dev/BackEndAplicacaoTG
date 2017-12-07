@@ -34,7 +34,11 @@ exports.getAtividadesColaborador = async(req, res, next) => {
 
 exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
-		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(req.params.nomeAnimal,
+
+		var animal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
+
+		if(animal.data.status == 204){
+			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(animal.data._id,
 		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
 		if(dataAtividade.length > 0){
@@ -42,8 +46,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			console.log("Vai ser gerado um relatório!");
 
 			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
-
-			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal._id);
+			//await repositoryAnimal.getById(dataAtividade[0].animal._id);
+			var dataAnimal = animal;
 
 			var width = 792;
 			var height = 792;
@@ -94,7 +98,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.moveDown(1);
 
 	   		doc
-	   		//.image('C:/Users/Desenvolvedor/Documents/BackEnd_Haras_TG/src/controllers/cavalo_padrao.jpeg', doc.x+12, doc.y+12, {fit: [144, 144]})
+	   		.image(dataAnimal.data.image, doc.x+12, doc.y+12, {fit: [144, 144]})
 		   	.rect(doc.x, doc.y, 168, 156)
 		   	.stroke()
 			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y,{continued: false, lineGap: 10})
@@ -167,6 +171,13 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 				message: 'Não foram encontradas atividades!'
 			});
 		}
+	}else{
+		res.status(204).send({
+				message: 'Não foram encontradas atividades!'
+			});
+	}
+
+		
 		
 	}catch (e) {
 		res.status(400).send({
@@ -177,6 +188,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 exports.getAtividadesProprietario = async(req, res, next) => {
 	try{
+
+
 		var data = await repositoryAtividade.getAtividadesProprietario(req.params.idProprietario,
 		 req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 		res.status(200).send(data);
