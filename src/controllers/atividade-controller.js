@@ -37,9 +37,9 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 		var animal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
 
-		if(animal.data.status == 204){
+		if(animal.status == 204){
 			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(animal.data._id,
-		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
+			req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
 		if(dataAtividade.length > 0){
 
