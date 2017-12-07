@@ -13,7 +13,7 @@ const schema = new Schema({
 		required : true
 	},
 	dataNascimento : {
-		type : Date,
+		type : String,
 		required : true
 	},
 	raca : {
