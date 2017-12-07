@@ -34,20 +34,16 @@ exports.getAtividadesColaborador = async(req, res, next) => {
 
 exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
-
-		var dataAnimal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
-		
-		//if(animal.status == 204){
-			var dataAtividade = await repositoryAtividade.getAtividadesAnimal(dataAnimal.data._id,
-			req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
+		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(req.params.nomeAnimal,
+		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
 		if(dataAtividade.length > 0){
 
 			console.log("Vai ser gerado um relatório!");
 
 			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
-			//await repositoryAnimal.getById(dataAtividade[0].animal._id);
-			//var dataAnimal = animal;
+
+			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal._id);
 
 			var width = 792;
 			var height = 792;
@@ -97,16 +93,16 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	   		doc.moveDown(1);
 
-	   		/*doc
-	   		//.image(dataAnimal.data.image, doc.x+12, doc.y+12, {fit: [144, 144]})
+	   		doc
+	   		.image(dataAnimal.data.image, doc.x+12, doc.y+12, {fit: [144, 144]})
 		   	.rect(doc.x, doc.y, 168, 156)
 		   	.stroke()
 			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y,{continued: false, lineGap: 10})
 			.text('NOME DO ANIMAL: '+dataAnimal.data.nome.toUpperCase(), 250, doc.y,{continued: false, lineGap: 10})
 			.text('RAÇA: '+dataAnimal.data.raca.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.text('SEXO: '+dataAnimal.data.sexo.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
-			//.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
-			//.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
+			.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
+			.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.moveDown(1);
 			;
 
@@ -164,22 +160,14 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			}
 
 	  		doc.pipe(res);
-			doc.end();*/
-			res.status(200).send({message: 'Foi criado!'});
+			doc.end();
 
 		}else{
 			res.status(204).send({
 				message: 'Não foram encontradas atividades!'
 			});
 		}
-	//}else{
-		//res.status(204).send({
-				//message: 'Não foram encontradas atividades!'
-			//});
-	//}
-	
 		
-		//res.status(200).send(animal);
 	}catch (e) {
 		res.status(400).send({
 			message : 'Falha ao buscar Atividades!', data:e
