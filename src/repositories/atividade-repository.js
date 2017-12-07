@@ -62,7 +62,7 @@ exports.getAtividadesAnimal = async(id, idHaras, dtInicio, dtTermino) => {
 		.populate({
 			path: 'animal',
 			match: {_id : id},
-			select: 'nome raca sexo _id'
+			select: 'codigo nome raca sexo _id'
 		})
 		.populate('haras')
 		;
