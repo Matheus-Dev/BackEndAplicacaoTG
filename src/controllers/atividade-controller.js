@@ -165,6 +165,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	  		doc.pipe(res);
 			doc.end();*/
+			res.status(200).send({message: 'Foi criado!'});
 
 		}else{
 			res.status(204).send({
