@@ -12,7 +12,11 @@ exports.get = async() => {
 		.populate('proprietario')
 		.populate('veterinario')
 		;
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+	if(res.length == 0){
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getPorHaras = async(id) => {
@@ -53,9 +57,9 @@ exports.getByNome = async(nome) => {
 	const res = await 
 		Animal
 		.findOne({
-				nome: nome
+				nome: new RegExp('^'+nome+'$', "i")
 			  });
-	if(res.length == 0){
+	if(!res){
 		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
@@ -68,7 +72,7 @@ exports.getById = async(id) => {
 		.findById(id)
 		.populate('proprietario','nome -_id')
 		;
-	if(res.length == 0){
+	if(!res){
 		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};

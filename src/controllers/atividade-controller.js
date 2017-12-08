@@ -97,19 +97,19 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.moveDown(1);
 
 	   		doc
-	   		.image(dataAnimal.data.image, doc.x, doc.y, width: 168, height: 156)
-		   	.rect(doc.x, doc.y, 168, 156)
-		   	.stroke()
-			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y,{continued: false, lineGap: 10})
+	   		.image(dataAnimal.data.image, doc.x, doc.y)
+		   	.rect(doc.x, doc.y-156, 168, 156)
+		   	.stroke();
+
+		   	doc
+			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y-156,{continued: false, lineGap: 10})
 			.text('NOME DO ANIMAL: '+dataAnimal.data.nome.toUpperCase(), 250, doc.y,{continued: false, lineGap: 10})
 			.text('RAÇA: '+dataAnimal.data.raca.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.text('SEXO: '+dataAnimal.data.sexo.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
-			.text('DATA DE NASCIMENTO: '+,moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'); 250, doc.y,{continued: false, lineGap: 10})
+			.text('DATA DE NASCIMENTO: '+moment(dataAnimal.data.dataNascimento).format('DD/MM/YYYY'), 250, doc.y,{continued: false, lineGap: 10})
 			.text('PROPRIETÁRIO: '+dataAnimal.data.proprietario.nome.toUpperCase(), 250, doc.y, {continued: false, lineGap: 10})
 			.moveDown(1);
 			;
-
-
 
 			doc.moveDown(1);
 

@@ -52,24 +52,15 @@ exports.getAtividadesAnimal = async(id, idHaras) => {
 	const res = await
 		Atividade
 		.find({
-			animal : id
+			animal : id,
+			haras: idHaras
 			/*dataCriacao : {
 				$gte : dtInicio,
 				$lte:  dtTermino
 			}*/
 		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
-		//.where('animal._id').equals(id)
-		//.where('idHaras').equals(idHaras)
 		.populate('colaborador', 'nome login funcao -_id')
-		.populate({
-			path: 'animal',
-			match: {_id : id},
-			select: 'nome raca sexo'
-		})
-		.populate({
-			path: 'haras',
-			match: {_id : idHaras}
-		})
+		.populate('haras', '-proprietario')
 		;
 	return res;
 };
@@ -100,8 +91,6 @@ exports.getAtividadesProprietario = async(id, idHaras) => {
 				$lte:  dtTermino
 			}*/
 		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
-		//.where('animal._id').equals(id)
-		//.where('idHaras').equals(idHaras)
 		.populate('colaborador', 'nome login funcao -_id')
 		.populate({
 			path: 'animal',
@@ -110,6 +99,7 @@ exports.getAtividadesProprietario = async(id, idHaras) => {
 		})
 		.populate('haras')
 		;
+
 	return res;
 };
 

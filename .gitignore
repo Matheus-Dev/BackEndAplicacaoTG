@@ -5,7 +5,12 @@ node_modules/
 tmp/
 temp/
 hooks/
+src/config.js
+src/app.js
 
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+config.js
+app.js
