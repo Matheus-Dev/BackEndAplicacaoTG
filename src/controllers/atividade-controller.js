@@ -97,7 +97,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.moveDown(1);
 
 	   		doc
-	   		.image(dataAnimal.data.image, doc.x+12, doc.y+12, {fit: [144, 144]})
+	   		.image(dataAnimal.data.image, doc.x+12, doc.y+12)
 		   	.rect(doc.x, doc.y, 168, 156)
 		   	.stroke()
 			.text('CHIP: '+dataAnimal.data.codigo, 250, doc.y,{continued: false, lineGap: 10})
