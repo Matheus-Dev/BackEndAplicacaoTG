@@ -76,7 +76,7 @@ exports.getById = async(id) => {
 };
 
 exports.create = async(data) => {
-	data.dataNascimento = moment(data.dataNascimento, "DD/MM/YYYY", "pt-BR").format('MM-DD-YYYY', 'pt-BR');
+	data.dataNascimento = moment(data.dataNascimento).format('MM-DD-YYYY');
 	var animal = new Animal(data);
 	const res = await animal.save();
 	return {status: 200, message : 'Animal Adicionado com Sucesso!', data: res};
