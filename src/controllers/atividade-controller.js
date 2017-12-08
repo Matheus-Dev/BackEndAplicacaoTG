@@ -46,7 +46,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
 
-			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal._id);
+			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal);
 
 			var width = 792;
 			var height = 792;

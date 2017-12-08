@@ -60,7 +60,7 @@ exports.getByNome = async(nome) => {
 				nome: new RegExp('^'+nome+'$', "i")
 			  });
 	if(!res){
-		return {status: 204, message : 'Nenhum Dado Encontrado'};
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -73,7 +73,7 @@ exports.getById = async(id) => {
 		.populate('proprietario','nome -_id')
 		;
 	if(!res){
-		return {status: 204, message : 'Nenhum Dado Encontrado'};
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}

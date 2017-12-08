@@ -9,16 +9,27 @@ exports.get = async() => {
 		.find({})
 		.populate('haras')
 		;
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(res.length == 0){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getByNome = async(nome) => {
 	const res = await 
 		Colaborador
-		.find({
+		.findOne({
 				nome: nome
 			  });
-	return res;	
+
+	console.log(res);
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getPorHaras = async(id) => {

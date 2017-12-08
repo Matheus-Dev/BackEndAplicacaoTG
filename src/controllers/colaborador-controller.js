@@ -43,6 +43,7 @@ exports.getByNome = async(req, res, next) => {
 		var data = await repositoryColaborador.getByNome(req.params.nome);
 		res.status(data.status).send(data);
 	}catch (e) {
+		console.log(e);
 		res.status(400).send({
 			message: 'Falha ao buscar Colaboradors!', data:e
 		});

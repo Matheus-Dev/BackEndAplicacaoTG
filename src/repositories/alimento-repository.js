@@ -8,7 +8,12 @@ exports.get = async() => {
 	const res = await 
 		Alimento
 		.find({});
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(res.length == 0){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getPorHaras = async(id) => {
@@ -21,7 +26,7 @@ exports.getPorHaras = async(id) => {
 		;
 
 	if(res.length == 0){
-		return {status: 204, message : 'Nenhum Dado Encontrado'};
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -39,7 +44,7 @@ exports.getValidos = async(id) => {
 		;
 
 	if(res.length == 0){
-		return {status: 204, message : 'Nenhum Dado Encontrado'};
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -49,23 +54,34 @@ exports.getValidos = async(id) => {
 exports.getByNome = async(nome) => {
 	const res = await 
 		Alimento
-		.find({
+		.findOne({
 				nome: nome
 			  });
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getById = async(id) => {
 	const res = await
 		Alimento
 		.findById(id);
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.create = async(data) => {
 	//data.dataValidade = moment(data.dataValidade, "DD/MM/YYYY").format('MM-DD-YYYY');
 	var alimento = new Alimento(data);
 	const res = await alimento.save();
+
 	return {status: 200, message : 'Alimento Criado com Sucesso!', data: res};
 };
 
@@ -78,7 +94,8 @@ exports.update = async(id, data) => {
 					codigoBarras : data.codigoBarras,
 					unidade : data.unidade,
 					dataValidade : data.dataValidade,
-					isValido: data.isValido					
+					isValido: data.isValido,
+					haras: data.haras				
 				}
 			});
 	return {status: 200, message : 'Alimento Atualizado Com Sucesso!', data: res};

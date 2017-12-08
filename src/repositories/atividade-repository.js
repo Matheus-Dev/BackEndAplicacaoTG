@@ -9,23 +9,37 @@ exports.get = async() => {
 		Atividade
 		.find({})
 		.populate('animal');
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+	if(res.length == 0){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getByCodigo = async(codigo) => {
 	const res = await 
 		Atividade
-		.find({
+		.findOne({
 				codigo: codigo
 			  });
-	return {status: 200, message : 'Dados Recuperados!', data: res};	
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}	
 };
 
 exports.getById = async(id) => {
 	const res = await
 		Atividade
 		.findById(id);
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 /*exports.getAtividadesAnimal = async(idAnimal, idHaras, dtInicio, dtTermino) => {

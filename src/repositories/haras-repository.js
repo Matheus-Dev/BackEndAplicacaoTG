@@ -9,7 +9,7 @@ exports.get = async() => {
 		.find({});
 
 	if(res.length == 0){
-		return {status: 204, message : 'Nenhum Dado Encontrado'};
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -21,14 +21,24 @@ exports.getByNome = async(nome) => {
 		.find({
 				nome: nome
 			  });
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getById = async(id) => {
 	const res = await
 		Haras
 		.findById(id);
-	return {status: 200, message : 'Dados Recuperados!', data: res};
+
+	if(!res){
+		return {status: 404, message : 'Nenhum Dado Encontrado'};
+	}else{
+		return {status: 200, message : 'Dados Recuperados', data: res};
+	}
 };
 
 exports.getHarasRegistrado = async(id) => {
@@ -36,7 +46,7 @@ exports.getHarasRegistrado = async(id) => {
 			.findById(id);
 
 	if(res == null){
-		return {status: 201, message: 'Erro: Chave Inválida!'};
+		return {status: 404, message: 'Erro: Chave Inválida!'};
 	}
 	if(res.registrou == true){
 		return {status: 201, message: 'Erro: Esta Chave já foi utilizada!'};
