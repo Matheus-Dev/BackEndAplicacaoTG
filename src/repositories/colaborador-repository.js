@@ -85,7 +85,8 @@ exports.update = async(id, data) => {
 					funcao : data.funcao,
 					admin: data.admin,
 					endereco : data.endereco,
-					isAtivo : data.isAtivo
+					isAtivo : data.isAtivo,
+					haras: data.haras
 				}
 			});
 	return {status: 200, message : 'Colaborador Atualizado com Sucesso!', data: res};
