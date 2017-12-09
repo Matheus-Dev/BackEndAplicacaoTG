@@ -7,7 +7,7 @@ const moment = require('moment');
 exports.get = async() => {
 	const res = await 
 		Animal
-		.find({})
+		.find({},'-image')
 		//.populate('haras')
 		.populate('proprietario')
 		.populate('veterinario')

@@ -38,7 +38,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 		var dataAnimal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
 
 		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(dataAnimal.data._id,
-		req.params.idHaras);
+		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
 
 		if(dataAtividade.length > 0){
 
@@ -207,6 +207,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 		//res.status(200).send(dataAtividade);
 		
 	}catch (e) {
+		console.log(e);
 		res.status(400).send({
 			message : 'Falha ao buscar Atividades!', data:e
 		});

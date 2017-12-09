@@ -8,7 +8,7 @@ exports.get = async() => {
 	const res = await 
 		Atividade
 		.find({})
-		.populate('animal');
+		.populate('animal', '-image');
 	if(res.length == 0){
 		return {status: 404, message : 'Nenhum Dado Encontrado'};
 	}else{
@@ -42,16 +42,16 @@ exports.getById = async(id) => {
 	}
 };
 
-exports.getAtividadesAnimal = async(id, idHaras) => {
+exports.getAtividadesAnimal = async(id, idHaras, dtInicio, dtTermino) => {
 	const res = await
 		Atividade
 		.find({
 			animal : id,
-			haras: idHaras
-			/*dataCriacao : {
+			haras: idHaras,
+			dataCriacao : {
 				$gte : dtInicio,
 				$lte:  dtTermino
-			}*/
+			}
 		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
 		.populate('colaborador', 'nome login funcao -_id')
 		.populate('haras', '-proprietario')
@@ -119,8 +119,15 @@ exports.getAtividadesProprietario = async(idProprietario, idHaras, dtInicio, dtT
 };
 */
 exports.create = async(data) => {
-	data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYY HH:mm:ss -0300');
-	var atividade = new Atividade(data);
+	//data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYY HH:mm:ss -0300');
+	var atividade = new Atividade({
+		tipo: data.tipo,
+		animal: data.animal,
+		detalhesAtividade: data.detalhesAtividade,
+		dataCriacao: new Date(data.dataCriacao),
+		colaborador: data.colaborador,
+		haras: data.haras
+	});
 	const res = await atividade.save();
 	return {status: 200, message : 'Atividade Criada com Sucesso!', data: res};
 };
