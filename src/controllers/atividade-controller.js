@@ -68,7 +68,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			})
 			;
 
-			doc.moveDown(1);
+			doc.moveDown(0.5);
 
 			doc.moveTo(doc.x, doc.y)                              
 	   		.lineTo(width, doc.y)
@@ -78,6 +78,23 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 	   		doc.moveDown(0.5);
 
 	   		doc.font('Times-Roman').fontSize(tamFont);
+
+	   		doc.font('Times-BoldItalic').fontSize(24)
+			.text('INFORMAÇÕES DO HARAS', {
+				align: 'center'
+			})
+			;
+
+	   		doc.moveDown(0.5);
+
+	   		doc.moveTo(doc.x, doc.y)                              
+	   		.lineTo(width, doc.y)
+	   		.stroke()
+	   		;
+
+	   		doc.font('Times-Roman').fontSize(tamFont);
+
+	   		doc.moveDown(1);
 
 			doc
 			.text('NOME DO HARAS: '+dataHaras.data.razaoSocial.toUpperCase(), {align: 'left',continued: false})
@@ -96,8 +113,23 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	   		doc.moveDown(1);
 
+	   		doc.font('Times-BoldItalic').fontSize(24)
+			.text('INFORMAÇÕES DO ANIMAL', {
+				align: 'center'
+			})
+			;
+
+			doc.moveTo(doc.x, doc.y)                              
+	   		.lineTo(width, doc.y)
+	   		.stroke()
+	   		;
+
+			doc.font('Times-Roman').fontSize(tamFont);
+
+			doc.moveDown(1);
+
 	   		doc
-	   		.image(dataAnimal.data.image, doc.x, doc.y)
+	   		.image(dataAnimal.data.image, doc.x, doc.y, {width: 168, height: 156})
 		   	.rect(doc.x, doc.y-156, 168, 156)
 		   	.stroke();
 
@@ -122,7 +154,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	   		doc.moveDown(1);
 
-	   		doc.font('Times-BoldItalic').fontSize(30)
+	   		doc.font('Times-BoldItalic').fontSize(24)
 			.text('SERVIÇOS PRESTADOS', {
 				align: 'center'
 			})

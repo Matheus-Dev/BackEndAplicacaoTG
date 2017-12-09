@@ -119,7 +119,7 @@ exports.getAtividadesProprietario = async(idProprietario, idHaras, dtInicio, dtT
 };
 */
 exports.create = async(data) => {
-	//data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYY HH:mm -0200');
+	data.dataCriacao = moment(data.dataCriacao).format('MM-DD-YYYYHH:mm-0300');
 	var atividade = new Atividade(data);
 	const res = await atividade.save();
 	return {status: 200, message : 'Atividade Criada com Sucesso!', data: res};
