@@ -54,8 +54,9 @@ exports.getAtividadesAnimal = async(id, idHaras, dtInicio, dtTermino) => {
 			}
 		}, 'codigo tipo animal detalhesAtividade dataCriacao colaborador haras')
 		.populate('colaborador', 'nome login funcao -_id')
-		.populate('haras', '-proprietario')
+		.populate('proprietario', 'nome -_id')
 		;
+	//console.log(res);
 	return res;
 };
 

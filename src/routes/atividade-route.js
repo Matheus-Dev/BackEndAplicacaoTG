@@ -5,8 +5,10 @@ const router = express.Router();
 const controller = require('../controllers/atividade-controller');
 
 //router.get('/buscar/animal/:idAnimal/:idHaras/:dtInicio/:dtTermino', controller.getAtividadesAnimal);
-router.get('/buscar/animal/:nomeAnimal/:idHaras/:dtInicio/:dtTermino', controller.getAtividadesAnimal);
+//router.get('/buscar/animal/:nomeAnimal/:idHaras/:dtInicio/:dtTermino', controller.getAtividadesAnimal);
 //router.get('/buscar/animal/:nomeAnimal/:idHaras', controller.getAtividadesAnimal);
+
+router.get('/relatorio/animal/', controller.getAtividadesAnimal);
 
 router.get('/buscar/colaborador/:idColaborador/:idHaras/:dtInicio/:dtTermino', controller.getAtividadesColaborador);
 

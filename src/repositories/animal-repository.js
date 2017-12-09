@@ -59,7 +59,9 @@ exports.getByNome = async(nome) => {
 		Animal
 		.findOne({
 				nome: new RegExp('^'+nome+'$', "i")
-			  });
+			  }, '-image')
+		.populate('proprietario', 'nome -_id');
+	//console.log(res);
 	if(!res){
 		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{

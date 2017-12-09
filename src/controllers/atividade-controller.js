@@ -34,19 +34,103 @@ exports.getAtividadesColaborador = async(req, res, next) => {
 
 exports.getAtividadesAnimal = async(req, res, next) => {
 	try{
-
-		var dataAnimal = await repositoryAnimal.getByNome(req.params.nomeAnimal);
+		
+		var dataAnimal = await repositoryAnimal.getByNome(decodeURI(req.query.nome));
 
 		var dataAtividade = await repositoryAtividade.getAtividadesAnimal(dataAnimal.data._id,
-		req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
+		req.query.idHaras, req.query.dtInicio, req.query.dtTermino);
+
+		var dataHaras = await repositoryHaras.getById(req.query.idHaras);
 
 		if(dataAtividade.length > 0){
 
-			console.log("Vai ser gerado um relatório!");
+			await gerarRelatorio(dataAnimal, dataAtividade, dataHaras, res);			
 
-			var dataHaras = await repositoryHaras.getById(req.params.idHaras);
+		}else{
+			res.status(204).send({
+				message: 'Não foram encontradas atividades!'
+			});
+		}
+		
+	}catch (e) {
+		console.log(e);
+		res.status(400).send({
+			message : 'Falha ao buscar Atividades!', data:e
+		});
+	}
+};
 
-			var dataAnimal = await repositoryAnimal.getById(dataAtividade[0].animal);
+exports.getAtividadesProprietario = async(req, res, next) => {
+	try{
+
+
+		var data = await repositoryAtividade.getAtividadesProprietario(req.params.idProprietario,
+		 req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
+		res.status(200).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message : 'Falha ao buscar Atividades!', data:e
+		});
+	}
+};
+
+exports.getByCodigo = async(req, res, next) => {
+	try{
+		var data = await repositoryAtividade.getByCodigo(req.params.codigo);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao buscar Atividades!', data:e
+		});
+	}
+};
+
+exports.getById = async(req, res, next) => {
+	try{
+		var data = await repositoryAtividade.getById(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao buscar Atividades!', data:e
+		});
+	}
+};
+
+exports.post = async(req, res, next) => {
+	try{
+		var data = await repositoryAtividade.create(req.body);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao cadastrar Atividade!', data:e
+		});
+	}
+};
+
+exports.put = async(req, res, next) => {
+	try{
+		var data = await repositoryAtividade.update(req.params.id, req.body);
+		res.status(data.status).send(data);
+
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao atualizar o Atividade!', data:e
+		});
+	}
+};
+
+exports.delete = async(req, res, next) => {
+	try{
+		var data = await repositoryAtividade.delete(req.params.id);
+		res.status(data.status).send(data);
+	}catch (e) {
+		res.status(400).send({
+			message: 'Falha ao remover o Atividade!', data:e
+		});
+	}
+};
+
+async function gerarRelatorio (dataAnimal, dataAtividade, dataHaras, res) {
 
 			var width = 792;
 			var height = 792;
@@ -56,6 +140,8 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			const doc = new PDFDocument({
 				size: [864, 864]
 			});
+
+			console.log(dataAnimal.data);
 
 	  		let filename = 'RelatorioServicosAnimal';
 			filename = encodeURIComponent(filename) + '.pdf';
@@ -198,88 +284,4 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 
 	  		doc.pipe(res);
 			doc.end();
-
-		}else{
-			res.status(204).send({
-				message: 'Não foram encontradas atividades!'
-			});
-		}
-		//res.status(200).send(dataAtividade);
-		
-	}catch (e) {
-		console.log(e);
-		res.status(400).send({
-			message : 'Falha ao buscar Atividades!', data:e
-		});
-	}
-};
-
-exports.getAtividadesProprietario = async(req, res, next) => {
-	try{
-
-
-		var data = await repositoryAtividade.getAtividadesProprietario(req.params.idProprietario,
-		 req.params.idHaras, req.params.dtInicio, req.params.dtTermino);
-		res.status(200).send(data);
-	}catch (e) {
-		res.status(400).send({
-			message : 'Falha ao buscar Atividades!', data:e
-		});
-	}
-};
-
-exports.getByCodigo = async(req, res, next) => {
-	try{
-		var data = await repositoryAtividade.getByCodigo(req.params.codigo);
-		res.status(data.status).send(data);
-	}catch (e) {
-		res.status(400).send({
-			message: 'Falha ao buscar Atividades!', data:e
-		});
-	}
-};
-
-exports.getById = async(req, res, next) => {
-	try{
-		var data = await repositoryAtividade.getById(req.params.id);
-		res.status(data.status).send(data);
-	}catch (e) {
-		res.status(400).send({
-			message: 'Falha ao buscar Atividades!', data:e
-		});
-	}
-};
-
-exports.post = async(req, res, next) => {
-	try{
-		var data = await repositoryAtividade.create(req.body);
-		res.status(data.status).send(data);
-	}catch (e) {
-		res.status(400).send({
-			message: 'Falha ao cadastrar Atividade!', data:e
-		});
-	}
-};
-
-exports.put = async(req, res, next) => {
-	try{
-		var data = await repositoryAtividade.update(req.params.id, req.body);
-		res.status(data.status).send(data);
-
-	}catch (e) {
-		res.status(400).send({
-			message: 'Falha ao atualizar o Atividade!', data:e
-		});
-	}
-};
-
-exports.delete = async(req, res, next) => {
-	try{
-		var data = await repositoryAtividade.delete(req.params.id);
-		res.status(data.status).send(data);
-	}catch (e) {
-		res.status(400).send({
-			message: 'Falha ao remover o Atividade!', data:e
-		});
-	}
 };
