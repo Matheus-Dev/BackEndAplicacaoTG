@@ -17,7 +17,7 @@ exports.getPorHaras = async(id) => {
 		.find({
 			haras: id		
 		})
-		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		//.populate('haras', 'codigo razaoSocial proprietario.nome')
 		;
 
 	if(res.length == 0){

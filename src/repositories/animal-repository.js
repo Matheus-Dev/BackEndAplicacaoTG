@@ -8,7 +8,7 @@ exports.get = async() => {
 	const res = await 
 		Animal
 		.find({})
-		.populate('haras')
+		//.populate('haras')
 		.populate('proprietario')
 		.populate('veterinario')
 		;
@@ -23,8 +23,9 @@ exports.getPorHaras = async(id) => {
 	const res = await 
 		Animal
 		.find({
-			haras: id		})
-		.populate('haras', 'codigo razaoSocial proprietario.nome')
+			haras: id		
+		})
+		//.populate('haras', 'codigo razaoSocial proprietario.nome')
 		;
 
 	if(res.length == 0){
@@ -42,7 +43,7 @@ exports.getValidos = async(id) => {
 			haras: id,
 			isAtivo: true
 		})
-		.populate('haras', 'codigo razaoSocial proprietario.nome')
+		//.populate('haras', 'codigo razaoSocial proprietario.nome')
 		;
 
 	if(res.length == 0){

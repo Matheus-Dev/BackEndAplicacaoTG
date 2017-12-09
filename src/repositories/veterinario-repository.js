@@ -16,8 +16,9 @@ exports.getPorHaras = async(id) => {
 	const res = await 
 		Veterinario
 		.find({
-			haras: id		})
-		.populate('haras', 'codigo razaoSocial proprietario.nome')
+			haras: id		
+		})
+		//.populate('haras', 'codigo razaoSocial proprietario.nome')
 		;
 
 	if(res.length == 0){

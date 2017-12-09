@@ -9,7 +9,7 @@ exports.get = async() => {
 		.find({});
 
 	if(res.length == 0){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -23,7 +23,7 @@ exports.getByNome = async(nome) => {
 			  });
 
 	if(!res){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -35,7 +35,7 @@ exports.getById = async(id) => {
 		.findById(id);
 
 	if(!res){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}

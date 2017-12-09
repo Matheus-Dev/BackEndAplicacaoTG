@@ -12,7 +12,7 @@ exports.get = async(id) => {
 		;
 
 	if(res.length == 0){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -23,12 +23,13 @@ exports.getPorHaras = async(id) => {
 	const res = await 
 		Proprietario
 		.find({
-			haras: id		})
-		.populate('haras', 'codigo razaoSocial proprietario.nome')
+			haras: id		
+		})
+		//.populate('haras', 'codigo razaoSocial proprietario.nome')
 		;
 
 	if(res.length == 0){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -42,7 +43,7 @@ exports.getValidos = async(id) => {
 			haras: id,
 			isAtivo: true
 		})
-		.populate('haras', 'codigo nomeFantasia proprietario.nome')
+		//.populate('haras', 'codigo nomeFantasia proprietario.nome')
 		;
 
 	if(res.length == 0){
