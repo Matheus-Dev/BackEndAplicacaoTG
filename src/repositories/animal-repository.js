@@ -60,7 +60,7 @@ exports.getByNome = async(nome) => {
 				nome: new RegExp('^'+nome+'$', "i")
 			  });
 	if(!res){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -73,7 +73,7 @@ exports.getById = async(id) => {
 		.populate('proprietario','nome -_id')
 		;
 	if(!res){
-		return {status: 404, message : 'Nenhum Dado Encontrado'};
+		return {status: 204, message : 'Nenhum Dado Encontrado'};
 	}else{
 		return {status: 200, message : 'Dados Recuperados', data: res};
 	}
@@ -98,7 +98,8 @@ exports.update = async(id, data) => {
 					proprietario : data.proprietario,
 					veterinario : data.veterinario,
 					image : data.image,
-					isAtivo: data.isAtivo
+					isAtivo: data.isAtivo,
+					haras: data.haras
 				}
 			});
 	return {status: 200, message : 'Animal Adicionado com Sucesso!', data: res};
