@@ -7,7 +7,7 @@ const moment = require('moment');
 exports.get = async() => {
 	const res = await 
 		Animal
-		.find({},'-image')
+		.find({})
 		//.populate('haras')
 		.populate('proprietario')
 		.populate('veterinario')
@@ -59,7 +59,7 @@ exports.getByNome = async(nome) => {
 		Animal
 		.findOne({
 				nome: new RegExp('^'+nome+'$', "i")
-			  }, '-image')
+			  })
 		.populate('proprietario', 'nome -_id');
 	//console.log(res);
 	if(!res){
