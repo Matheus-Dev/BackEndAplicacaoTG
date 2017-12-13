@@ -1,4 +1,3 @@
-//global.SALT_KEY = '54D83741-6E01-4447-A19E-4C55E25F7083';
 global.EMAIL_TMPL_KEY = 
 '<p>Obrigado por utilizar o Aplicativo HarasMobile.</p>'+
 '<p>Para finalizar o seu cadastro, por favor, informe a sua chave de registro no Aplicativo.</p>'+
