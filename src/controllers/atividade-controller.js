@@ -47,7 +47,7 @@ exports.getAtividadesAnimal = async(req, res, next) => {
 			await gerarRelatorio(dataAnimal, dataAtividade, dataHaras, res);			
 
 		}else{
-			res.status(204).send({
+			res.status(404).send({
 				message: 'Não foram encontradas atividades!'
 			});
 		}
